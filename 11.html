@@ -1,14 +1,12 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Online streaming your WebCam</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="booth">
-   <video id="video" width="400" height="300" autoplay></video>
-  </div>
-  <script src="video.js"></script>
-</body>
-</html>
+<div class='chat'>
+	<div class='chat-messages'>
+		<div class='chat-messages__content' id='messages'>
+			Загрузка...
+		</div>
+	</div>
+	<div class='chat-input'>
+		<form method='post' id='chat-form'>
+			<input type='text' id='message-text' class='chat-form__input' placeholder='Введите сообщение'> <input type='submit' class='chat-form__submit' value='=>'>
+		</form>
+	</div>
+</div>
