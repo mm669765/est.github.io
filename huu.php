@@ -137,3 +137,31 @@ $.post('includes/chat.php',{
 		messageInput.value = '';
 	}
 });
+function getEmojis() {
+	$dir = '../images/emojis';
+	$echo = "";
+	$files = scandir($dir);
+	
+	for($i = 0; $i != count($files); $i++) {
+		$ext = explode('.',$files[$i]);
+		if($ext[1] == 'png') {
+			$echo .= "<img src='/images/emojis/".$files[$i]."' title=':".$ext[0].":' class='emoji-img emoji-add'> ";
+		} 
+	}
+	return $echo;
+}
+case 'load-emojis': 
+	$echo = getEmojis();
+break;
+function transformEmoji($message) {
+	$pattern = '/(\:\S*\:)/i'; //Паттерн смайлика
+	if(preg_match($pattern,$message,$matches)) {//Ищем все совпадения для смайлика одного типа — только :happy: или только :sad:
+		$path = explode(":",$matches[0]);
+		if(file_exists("../images/emojis/".$path[1].".png")) {//Проверяем, существует ли такое изображение
+			$message = preg_replace("/".$matches[0]."/","<img src='/images/emojis/$path[1].png' class='emoji-img'>",$message);//Заменяем код на изображение
+		}
+		$message = transformEmoji($message); //Повторяем, пока в $message есть коды смайликов
+	}
+	return $message;
+}
+$array['message'] = transformEmoji($array['message']);
