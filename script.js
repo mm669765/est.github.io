@@ -18,3 +18,14 @@ function showEmojis() {//Добавляем отображение и скрыт
 		showed = true;
 	}
 }
+function addEmoji(title) {
+	messageInput.value += " " + title + " ";
+//Тут же можно добавить закрытие контейнера
+messageInput.focus();
+}
+$(document).ready(function (){
+	$(".emoji-add").on("click", function () {addEmoji($(this).attr('title'));});//Добавление
+});
+emojis__button.addEventListener('click',showEmojis); 
+
+getEmojis(); //Сразу же вызываем получение смайликов
